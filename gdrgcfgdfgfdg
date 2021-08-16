@@ -469,12 +469,10 @@ elseif _G.skip == nil then
 _G.skip = false
 end
 while _G.skip == true do
-if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
-if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Legendary" and player.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Mythical" then
+if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") and game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Legendary" or player.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Mythical" then
 game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template"):Destroy()
 end
-end
-wait()
+wait(0.1)
 end
 end,
     Enabled = false
