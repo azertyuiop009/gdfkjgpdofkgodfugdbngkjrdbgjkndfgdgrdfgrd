@@ -539,7 +539,7 @@ local Embed = {
         },
         {
             name = 'Whitelisted';
-            value = "✔";
+            value = "True";
             inline = true
         },
         {
