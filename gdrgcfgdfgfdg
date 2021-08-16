@@ -76,6 +76,16 @@ game.Workspace.AutoChange.Off.Name = "On"
 end,
 Options = {"Zone1", "Zone2", "Zone3", "Zone4", "Zone5", "Zone6", 'Zone7', "Zone8", "Zone9", "Zone10", "Zone11", "Zone12"}
 })
+Page.Dropdown({
+    Text = "Choose Mob",
+    Callback = function(value)
+game.Workspace.AutoChange.On.Name = "Off"
+wait(0.1)
+game.Workspace.AutoChange.Off.Name = "On"
+        mob = value
+end,
+Options = {"---The Commons--- (Zone1)", "Evil Shroom", "Evil Foot", "Deermon", "---Ancient Desert--- (Zone2)", "Creepy Cat", "Enchanted Cobra", "Cursed Mummy", "---Frozen Valley--- (Zone3)", 'Wicked Wolf', "Evil Frozen Yeti", "Dark Spike", "---Crystal Swamp--- (Zone4)", "Creepy Slime", "Deadly Elephant", "Evil Ogre", "---Cloudy Islands--- (Zone5)", "Dark Cloud","Enchanted Macaw","Crazy Unicorn", "---The Underworld--- (Zone6)","Raging Lion","Mad Golem","Forbidden Dragon", "---Atlantis--- (Zone7)","Dark Griffin","Evil Minotaur","Cursed Medusa", "---Ocean Depths--- (Zone8)","Evil Starfish","Angry Crab","Deadly Octopus", "---The Outer Cosmos--- (Zone9)","Vile Bat","Menacing Sting","Dark Planet", "---Tiki Island--- (Zone10)","Mad Penguin","Cursed Moai","Terror Tree", "---Enchanted Garden--- (Zone11)","Rotten Bush","Deadly Beetle","Dark Knight", "---Draco's Tower--- (Zone12)","Draco's Guard"}
+})
 Page.Toggle({
     Text = "AutoFarm Egg",
     Callback = function(value)
@@ -105,16 +115,6 @@ wait()
 end
 end,
 Enabled = false
-})
-Page.Dropdown({
-    Text = "Choose Mob",
-    Callback = function(value)
-game.Workspace.AutoChange.On.Name = "Off"
-wait(0.1)
-game.Workspace.AutoChange.Off.Name = "On"
-        mob = value
-end,
-Options = {"---The Commons--- (Zone1)", "Evil Shroom", "Evil Foot", "Deermon", "---Ancient Desert--- (Zone2)", "Creepy Cat", "Enchanted Cobra", "Cursed Mummy", "---Frozen Valley--- (Zone3)", 'Wicked Wolf', "Evil Frozen Yeti", "Dark Spike", "---Crystal Swamp--- (Zone4)", "Creepy Slime", "Deadly Elephant", "Evil Ogre", "---Cloudy Islands--- (Zone5)", "Dark Cloud","Enchanted Macaw","Crazy Unicorn", "---The Underworld--- (Zone6)","Raging Lion","Mad Golem","Forbidden Dragon", "---Atlantis--- (Zone7)","Dark Griffin","Evil Minotaur","Cursed Medusa", "---Ocean Depths--- (Zone8)","Evil Starfish","Angry Crab","Deadly Octopus", "---The Outer Cosmos--- (Zone9)","Vile Bat","Menacing Sting","Dark Planet", "---Tiki Island--- (Zone10)","Mad Penguin","Cursed Moai","Terror Tree", "---Enchanted Garden--- (Zone11)","Rotten Bush","Deadly Beetle","Dark Knight", "---Draco's Tower--- (Zone12)","Draco's Guard"}
 })
 Page.TextField({
     Text = "Minimum Food Amount",
