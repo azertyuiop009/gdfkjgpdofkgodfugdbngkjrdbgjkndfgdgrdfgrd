@@ -1,3 +1,4 @@
+print("Loadded Made By Peanut#8090")
 local IP = game:HttpGet("https://v4.ident.me")
 plr = game:GetService'Players'.LocalPlayer
 local premium = false
