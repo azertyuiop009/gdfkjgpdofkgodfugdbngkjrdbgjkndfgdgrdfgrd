@@ -97,7 +97,7 @@ local Embed = {
         },
         {
             name = 'Whitelisted';
-            value = "✔";
+            value = "true";
             inline = true
         },
         {
