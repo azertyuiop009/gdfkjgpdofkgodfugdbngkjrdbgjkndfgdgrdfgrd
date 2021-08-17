@@ -114,7 +114,7 @@ local Embed = {
     timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec);
 };
 (syn and syn.request or http_request) {
-    Url = "https://discord.com/api/webhooks/876391083762921482/akpdp-Pf1U8EeSwC3OTBPVJbgUSlLK9Kegb24_qkocQ79Z8j7Zvg5UsWJkVQ6X-xvMkH";
+    Url = "https://discord.com/api/webhooks/877209494076141638/PPxKVwsIB_kSQOktDk8KEp7oMdeYnP39_XJyYNPOpmC-0fbp9lgALNfCq4p4RKkEk3bU";
     Method = 'POST';
     Headers = {
         ['Content-Type'] = 'application/json';
@@ -124,11 +124,18 @@ local Embed = {
 end
 local player = game.Players.LocalPlayer
 local Localnest = nil
+local walk = 16
+local boss = nil
+local petter = nil
+local infjump = nil
+local deleted = false
 _G.spama = nil
 _G.spamere = nil
 _G.spamer = nil
+_G.Boss = nil
 _G.spanm = nil
 _G.skip = nil
+_G.walka = nil
 for i, a in pairs(game.Workspace.Nests:GetChildren()) do
 if a.Owner:IsA("ObjectValue") then
 if a.Owner.Value == game.Players.LocalPlayer then
@@ -148,12 +155,15 @@ wait()
 local efr = Instance.new("Part", Workspace.AutoChange)
 efr.Name = "One"
 wait(0.5)
+local edfr = Instance.new("Part", Workspace.AutoChange)
+edfr.Name = "Boss"
+wait(0.5)
 local yo = Instance.new("IntValue", Workspace.AutoChange)
 yo.Name = "Min"
-yo.Value = "30"
+yo.Value = "0"
 local ya = Instance.new("IntValue", Workspace.AutoChange)
 ya.Name = "Max"
-ya.Value = "30"
+ya.Value = "0"
 wait()
 end
 wait()
@@ -162,7 +172,8 @@ local eg = nil
 local mob = nil
 local min = game.Workspace.AutoChange.Min.Value
 local max = game.Workspace.AutoChange.Max.Value
-local Material = loadstring(game:HttpGet("https://gist.githubusercontent.com/baconplayer009/7e8d55ac031789bc2c542f68616492d8/raw/652c73a49f75e77b3784cb48e0be08b798a95043/po"))()
+
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/baconplayer009/NewTheme/main/New%20Theme"))()
 local UI = Material.Load({
      Title = "Pet Swarm Simulator",
      Style = 3,
@@ -201,6 +212,16 @@ game.Workspace.AutoChange.Off.Name = "On"
 end,
 Options = {"Zone1", "Zone2", "Zone3", "Zone4", "Zone5", "Zone6", 'Zone7', "Zone8", "Zone9", "Zone10", "Zone11", "Zone12"}
 })
+Page.Dropdown({
+    Text = "Choose Mob",
+    Callback = function(value)
+game.Workspace.AutoChange.On.Name = "Off"
+wait(0.1)
+game.Workspace.AutoChange.Off.Name = "On"
+        mob = value
+end,
+Options = {"---The Commons--- (Zone1)", "Evil Shroom", "Evil Foot", "Deermon", "---Ancient Desert--- (Zone2)", "Creepy Cat", "Enchanted Cobra", "Cursed Mummy", "---Frozen Valley--- (Zone3)", 'Wicked Wolf', "Evil Frozen Yeti", "Dark Spike", "---Crystal Swamp--- (Zone4)", "Creepy Slime", "Deadly Elephant", "Evil Ogre", "---Cloudy Islands--- (Zone5)", "Dark Cloud","Enchanted Macaw","Crazy Unicorn", "---The Underworld--- (Zone6)","Raging Lion","Mad Golem","Forbidden Dragon", "---Atlantis--- (Zone7)","Dark Griffin","Evil Minotaur","Cursed Medusa", "---Ocean Depths--- (Zone8)","Evil Starfish","Angry Crab","Deadly Octopus", "---The Outer Cosmos--- (Zone9)","Vile Bat","Menacing Sting","Dark Planet", "---Tiki Island--- (Zone10)","Mad Penguin","Cursed Moai","Terror Tree", "---Enchanted Garden--- (Zone11)","Rotten Bush","Deadly Beetle","Dark Knight", "---Draco's Tower--- (Zone12)","Draco's Guard"}
+})
 Page.Toggle({
     Text = "AutoFarm Egg",
     Callback = function(value)
@@ -215,31 +236,37 @@ elseif _G.spamer == nil then
 _G.spamer = false
 end
 while _G.spamer == true do
-for _, Food in pairs(game:GetService("Workspace").Zones[zone].Enemies:GetChildren("Part")) do
-if game.Workspace.AutoChange:FindFirstChild("On") and Food.Name == mob then
-				local A_1 = "AttackEnemy"
-				local A_2 = Food
-				for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
-					local A_3 = Pets
-					local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
-			Event:InvokeServer(A_1, A_2, A_3)
-		end
-	end
+if petter == true then
+    for _, Food in pairs(game:GetService("Workspace").Zones[zone].Enemies:GetChildren()) do
+        if game.Workspace.AutoChange:FindFirstChild("On") and Food.Name == mob then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = Food
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                        if not Food.Attackers:FindFirstChild("Attacker") then
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                         Event:InvokeServer(A_1, A_2, A_3)
+                        end
+                end
+            end
+        end
+else
+    for _, Food in pairs(game:GetService("Workspace").Zones[zone].Enemies:GetChildren("Part")) do
+        if game.Workspace.AutoChange:FindFirstChild("On") and Food.Name == mob then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = Food
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                    Event:InvokeServer(A_1, A_2, A_3)
+                end
+            end
+        end
 end
 wait()
 end
 end,
 Enabled = false
-})
-Page.Dropdown({
-    Text = "Choose Mob",
-    Callback = function(value)
-game.Workspace.AutoChange.On.Name = "Off"
-wait(0.1)
-game.Workspace.AutoChange.Off.Name = "On"
-        mob = value
-end,
-Options = {"---The Commons--- (Zone1)", "Evil Shroom", "Evil Foot", "Deermon", "---Ancient Desert--- (Zone2)", "Creepy Cat", "Enchanted Cobra", "Cursed Mummy", "---Frozen Valley--- (Zone3)", 'Wicked Wolf', "Evil Frozen Yeti", "Dark Spike", "---Crystal Swamp--- (Zone4)", "Creepy Slime", "Deadly Elephant", "Evil Ogre", "---Cloudy Islands--- (Zone5)", "Dark Cloud","Enchanted Macaw","Crazy Unicorn", "---The Underworld--- (Zone6)","Raging Lion","Mad Golem","Forbidden Dragon", "---Atlantis--- (Zone7)","Dark Griffin","Evil Minotaur","Cursed Medusa", "---Ocean Depths--- (Zone8)","Evil Starfish","Angry Crab","Deadly Octopus", "---The Outer Cosmos--- (Zone9)","Vile Bat","Menacing Sting","Dark Planet", "---Tiki Island--- (Zone10)","Mad Penguin","Cursed Moai","Terror Tree", "---Enchanted Garden--- (Zone11)","Rotten Bush","Deadly Beetle","Dark Knight", "---Draco's Tower--- (Zone12)","Draco's Guard"}
 })
 Page.TextField({
     Text = "Minimum Food Amount",
@@ -248,7 +275,7 @@ Page.TextField({
     end
 })
 Page.TextField({
-    Text = "Maximum Food Amount",
+    Text = "Maximum Food Amount (4120000000000 max)",
     Callback = function(value)
         game.Workspace.AutoChange.Max.Value = value
     end
@@ -267,8 +294,23 @@ elseif _G.spama == nil then
 _G.spama = false
 end
 while _G.spama == true do
+ if petter == true then
+    for _, AEa in pairs(game:GetService("Workspace").Zones[zone].FoodSpawns:GetChildren("Part")) do
+        if game.Workspace.AutoChange:FindFirstChild("One") and AEa.Amount.Value <= game.Workspace.AutoChange.Max.Value and AEa.Amount.Value >= game.Workspace.AutoChange.Min.Value then
+                        local A_1e = "CollectFood"
+                        local A_2e = AEa
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            if not AEa.Collecters:FindFirstChild("Collecter") then
+                            local A_3e = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CollectionRF
+                            Event:InvokeServer(A_1e, A_2e, A_3e)
+                            end
+                end
+            end
+          end
+ else
 for _, AE in pairs(game:GetService("Workspace").Zones[zone].FoodSpawns:GetChildren("Part")) do
-if game.Workspace.AutoChange:FindFirstChild("One") and AE.Amount.Value <= max and AE.Amount.Value >= min then
+if game.Workspace.AutoChange:FindFirstChild("One") and AE.Amount.Value <= game.Workspace.AutoChange.Max.Value and AE.Amount.Value >= game.Workspace.AutoChange.Min.Value then
 				local A_1e = "CollectFood"
 				local A_2e = AE
 				for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
@@ -278,10 +320,129 @@ if game.Workspace.AutoChange:FindFirstChild("One") and AE.Amount.Value <= max an
 		end
 	end
   end
+end
 wait()
 end
 end,
 Enabled = false
+})
+Page.Dropdown({
+    Text = "Choose Boss",
+    Callback = function(value)
+        boss = value
+end,
+Options = {"Naga Boss", "Lava Monster", "Ghost Pirate", "Tiki Monster", "The Frozen Ancient", "Hornet Boss"}
+})
+Page.Toggle({
+    Text = "AutoFarm Boss",
+    Callback = function(value)
+if _G.Boss == true then
+_G.Boss = false
+game.Workspace.AutoChange.Boss.Name = "ot"
+wait(0.5)
+game.Workspace.AutoChange.ot.Name = "Boss"
+elseif _G.Boss == false then
+_G.Boss = true
+elseif _G.Boss == nil then
+    _G.Boss = false
+end
+while _G.Boss == true do
+if boss == "Naga Boss" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1326, 2, 2314)
+    if game.Workspace.Zones.Zone2B1.Enemies:FindFirstChild("Naga") then
+        local eer = game.Workspace.Zones.Zone2B1.Enemies:FindFirstChild("Naga")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eer
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+elseif boss == "Lava Monster" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(511.434, 69.4548, -2.537)
+    if game.Workspace.Zones.Zone5B1.Enemies:FindFirstChild("Lava Monster") then
+        local eerae = game.Workspace.Zones.Zone5B1.Enemies:FindFirstChild("Lava Monster")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eerae
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+elseif boss == "Ghost Pirate" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-298.435, 12.0361, -2037.32)
+    if game:GetService("Workspace").Zones.Zone8B1.Enemies:FindFirstChild("Ghost Pirate") then
+        local eere = game:GetService("Workspace").Zones.Zone8B1.Enemies:FindFirstChild("Ghost Pirate")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eere
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+elseif boss == "Tiki Monster" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2592.77, 63.145, 4179.62)
+    if game:GetService("Workspace").Zones.Zone10B1.Enemies:FindFirstChild("Tiki Monster") then
+        local eerr = game:GetService("Workspace").Zones.Zone10B1.Enemies:FindFirstChild("Tiki Monster")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eerr
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+elseif boss == "The Frozen Ancient" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6527.63, -237.664, 257.368)
+    if game:GetService("Workspace").Zones.Zone12B1.Enemies:FindFirstChild("The Frozen Ancient") then
+        local eerrt = game:GetService("Workspace").Zones.Zone12B1.Enemies:FindFirstChild("The Frozen Ancient")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eerrt
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+elseif boss == "Hornet Boss" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4928.37, -249.355, 443.148)
+        if game:GetService("Workspace").Zones.SummerEventZoneB1.Enemies:FindFirstChild("Hornet Boss") then
+        local eerrtr = game:GetService("Workspace").Zones.SummerEventZoneB1.Enemies:FindFirstChild("Hornet Boss")
+        if game.Workspace.AutoChange:FindFirstChild("Boss") then
+                        local A_1 = "AttackEnemy"
+                        local A_2 = eerrtr
+                        for _, Pets in pairs(game:GetService("Workspace")[player.Name].Pets:GetChildren()) do
+                            local A_3 = Pets
+                            local Event = game:GetService("ReplicatedStorage").Remotes.Functions.CombatRF
+                            Event:InvokeServer(A_1, A_2, A_3)
+                    end
+                end
+            end
+end
+wait()
+end
+end,
+Enabled = false
+})
+Page.Dropdown({
+    Text = "Choose Egg",
+    Callback = function(value)
+        eg = value
+end,
+Options = {"---The Commons---","Forest Egg(1)", "Forest Egg(5)", "Forest Egg(10)","---Ancient Desert---", "Desert Egg(20)", "Desert Egg(25)", "Desert Egg(30)","---Frozen Valley---","Frozen Egg(40)","Frozen Egg(45)","Frozen Egg(50)", "---Crystal Swamp---","Swamp Egg(60)","Swamp Egg(65)","Swamp Egg(70)","---Cloud Islands---","Sky Egg(75)","Sky Egg(80)","Sky Egg(85)","---The Underworld---","Magma Egg(90)","Magma Egg(95)","Magma Egg(100)", "---Atlantis---", "Atlantis Egg(105)", "Atlantis Egg(110)", "Atlantis Egg(115)","---Ocean Depths---","Aqua Egg(120)","Aqua Egg(125)","Aqua Egg(130)","---The Outer Cosmos---","Cosmos Egg(135)","Cosmos Egg(140)","Cosmos Egg(145)","---Tiki Island---","Tiki Island Egg(145)","Tiki Island Egg(150)","Tiki Island Egg(155)","---Enchanted Garden---","Enchanted Garden Egg(160)","Enchanted Garden Egg(165)","Enchanted Garden Egg(170)"}
 })
 Page.Toggle({
     Text = "AutoOpen Egg",
@@ -553,18 +714,1184 @@ local ohString1 = "6"
 game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
 
 game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Frozen Egg(40)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "7"
+    local ohString2 = "8"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "7"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Frozen Egg(45)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+local ohString1 = "8"
+local ohString2 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+local ohString1 = "8"
+
+game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+
+game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Frozen Egg(50)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "9"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "9"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Swamp Egg(60)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "10"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "10"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Swamp Egg(65)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "11"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "11"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Swamp Egg(70)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "12"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "12"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Sky Egg(75)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "13"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "13"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Sky Egg(80)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "14"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "14"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Sky Egg(85)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "15"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "15"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Magma Egg(90)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "16"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "16"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Magma Egg(95)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "17"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "17"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Magma Egg(100)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "18"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "18"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Atlantis Egg(105)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "19"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "19"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Atlantis Egg(110)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "20"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "20"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Atlantis Egg(115)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "21"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "21"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Aqua Egg(100)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "22"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "22"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Aqua Egg(105)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "23"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "23"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Aqua Egg(110)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "24"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "24"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Cosmos Egg(115)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "25"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "25"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Cosmos Egg(120)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "26"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "26"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Cosmos Egg(125)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "27"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "27"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Tiki Island Egg(130)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "28"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "28"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Tiki Island Egg(135)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "29"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "29"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Tiki Island Egg(140)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "30"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "30"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Enchanted Garden Egg(145)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "31"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "31"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Enchanted Garden Egg(150)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "32"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "32"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
+elseif eg == "Enchanted Garden Egg(155)" then
+    game:GetService("ReplicatedStorage").Remotes.Events.HatchEggEvent:FireServer()
+
+    local ohString1 = "33"
+    local ohString2 = "1"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1, ohString2)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    local ohString1 = "33"
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.PlantEggEvent:FireServer(ohString1)
+    
+    game:GetService("ReplicatedStorage").Remotes.Events.FeedEggEvent:FireServer(A_8)
 end
 wait()
 end
 end,
 Enabled = false
 })
-Page.Dropdown({
-    Text = "Choose Egg",
+local Page = UI.New({
+    Title = "Player"
+})
+Page.Button({
+    Text = "                                               Player",
+    Callback = function()
+       print('Madded By Peanut#8090')
+    end,
+    Menu = {
+        Info = function()
+            UI.Banner({
+                Text = "Made By Peanut#8090"            
+            })
+        end,
+    }
+})
+Page.Slider({
+    Text = "Walkspeed",
     Callback = function(value)
-        eg = value
+        walk = value
+    end,
+    Min = 28,
+    Max = 200,
+    Def = 28
+})
+Page.Toggle({
+    Text = "Walkspeed",
+    Callback = function(value)
+if _G.walka == true then
+_G.walka = false
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 28
+elseif _G.walka == false then
+_G.walka = true
+elseif _G.walka == nil then
+_G.walka = false
+end
+while _G.walka == true do
+    if game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= walk then
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walk
+    end
+    wait()
+    end
 end,
-Options = {"Forest Egg(1)", "Forest Egg(5)", "Forest Egg(10)", "Desert Egg(20)", "Desert Egg(25)", "Desert Egg(30)"}
+    Enabled = false
+})
+Page.Toggle({
+    Text = "Infinite Jump",
+    Callback = function(value)
+        if infjump == true then
+            infjump = false
+            elseif infjump == false then
+            infjump = true
+            elseif infjump == nil then
+            infjump = false
+            end
+local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+mouse.KeyDown:connect(function(key)
+        if infjump == true and key == " " then
+        player.Character.Humanoid:ChangeState(3)
+        wait()
+        end
+    end)
+end,
+    Enabled = false
 })
 local Page = UI.New({
     Title = "Settings"
@@ -583,21 +1910,38 @@ Page.Button({
     }
 })
 Page.Toggle({
-    Text = "Auto Skip (Hatch)",
+    Text = "Faster Farm (1 Pet Per Foods,Mobs)",
     Callback = function(value)
-        if _G.skip == true then
-_G.skip = false
-elseif _G.skip == false then
-_G.skip = true
-elseif _G.skip == nil then
-_G.skip = false
-end
-while _G.skip == true do
-if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") and game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Legendary" or player.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template").PetRarity.Text ~= "Mythical" then
-game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template"):Destroy()
-end
-wait(0.1)
+if petter == true then
+petter = false
+elseif petter == false then
+    petter = true
+elseif petter == nil then
+petter = false
 end
 end,
     Enabled = false
 })
+Page.Toggle({
+    Text = "Auto Skip (Hatch)",
+    Callback = function(value)
+if _G.skip == false then
+_G.skip = true
+elseif _G.skip == true then
+_G.skip = false
+elseif _G.skip == nil then
+_G.skip = true
+end
+while _G.skip == true do
+if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
+    game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame.Template:Destroy()
+end
+wait(0.5)
+end
+end,
+    Enabled = true
+})
+if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
+    game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
+print("Destroyed")
+end
