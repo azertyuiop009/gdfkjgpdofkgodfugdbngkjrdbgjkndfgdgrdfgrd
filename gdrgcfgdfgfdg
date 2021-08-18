@@ -1,4 +1,4 @@
-print("Loadded Made By Peanut#8090")
+print("Made By Peanut#8090")
 local player = game.Players.LocalPlayer
 local Localnest = nil
 local walk = 16
