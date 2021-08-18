@@ -80,14 +80,18 @@ Login.TextColor3 = Color3.fromRGB(255, 255, 255)
 Login.TextSize = 14.000
 Login.MouseButton1Down:connect(function()
 	Login.Text = "Checking Key ..."
-	wait(5)
+	wait(2)
 	if(KeyText.Text == "ase3Ag4N69yYJ4j7jWdkSZzVQQYKcO" or KeyText.Text == "pea123." or KeyText.Text == "hibro[key.].") then
 		Login.Text = 'Correct Key !'
-		wait(3)
+		KeyText.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+		wait(1)
+		Login.Text = 'Loading Gui...'
+		wait(0.5)
 		game.CoreGui:FindFirstChild("Key System"):Destroy()
-wait()
+                wait()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/baconplayer009/gdfkjgpdofkgodfugdbngkjrdbgjkndfgdgrdfgrd/main/gdrgcfgdfgfdg"))()
 	else
+		KeyText.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 		Login.Text = "Incorrect Key !"
 		wait(3)
 		Login.Text = "Login"
