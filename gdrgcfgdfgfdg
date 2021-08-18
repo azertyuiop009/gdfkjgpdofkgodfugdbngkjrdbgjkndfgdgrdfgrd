@@ -1,7 +1,7 @@
 print("Made By Peanut#8090")
 local player = game.Players.LocalPlayer
 local Localnest = nil
-local walk = 16
+local walk = 28
 local boss = nil
 local petter = nil
 local infjump = nil
@@ -1804,15 +1804,20 @@ Page.Toggle({
     Callback = function(value)
 if _G.skip == true then
 _G.skip = false
+if not game.Players.LocalPlayer.PlayerScripts.Player.EggOpeningFramework:FindFirstChild("EggKnock") then
+local efrrf = Instance.new("Sound", game.Players.LocalPlayer.PlayerScripts.Player.EggOpeningFramework)
+efrrf.Name = "EggKnock"
+print("Created")
+end
 elseif _G.skip == false then
 _G.skip = true
 elseif _G.skip == nil then
-_G.skip = true
+_G.skip = false
 end
 while _G.skip == true do
-if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
-    game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
-        print("Destroyed!")
+if game.Players.LocalPlayer.PlayerScripts.Player.EggOpeningFramework:FindFirstChild("EggKnock") then
+    game.Players.LocalPlayer.PlayerScripts.Player.EggOpeningFramework:FindFirstChild("EggKnock"):Destroy()
+    print("Destroyed!")
     elseif game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
     game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame.Template:Destroy()
     end
