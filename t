@@ -83,6 +83,7 @@ Login.MouseButton1Down:connect(function()
 	wait(2)
 	if(KeyText.Text == "ase3Ag4N69yYJ4j7jWdkSZzVQQYKcO" or KeyText.Text == "pea123." or KeyText.Text == "hibro[key.].") then
 		Login.Text = 'Correct Key !'
+		Login.TextColor3 = Color3.fromRGB(0, 255, 0)
 		KeyText.TextColor3 = Color3.fromRGB(0, 255, 0)
 		KeyText.PlaceholderColor3 = Color3.fromRGB(0, 255, 0)
 		wait(1)
@@ -92,6 +93,7 @@ Login.MouseButton1Down:connect(function()
                 wait()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/baconplayer009/gdfkjgpdofkgodfugdbngkjrdbgjkndfgdgrdfgrd/main/gdrgcfgdfgfdg"))()
 	else
+	        Login.TextColor3 = Color3.fromRGB(255, 0, 0)
 	        KeyText.PlaceholderColor3 = Color3.fromRGB(255, 0, 0)
 		KeyText.TextColor3 = Color3.fromRGB(255, 0, 0)
 		Login.Text = "Incorrect Key !"
