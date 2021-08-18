@@ -1813,7 +1813,7 @@ while _G.skip == true do
 if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
     game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame.Template:Destroy()
 end
-wait(0.5)
+wait(0.2)
 end
 end,
     Enabled = true
