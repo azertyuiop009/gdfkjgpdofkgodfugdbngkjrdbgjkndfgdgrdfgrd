@@ -1941,6 +1941,7 @@ end
 end,
     Enabled = true
 })
+wait(0.5)
 if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
     game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
 print("Destroyed")
