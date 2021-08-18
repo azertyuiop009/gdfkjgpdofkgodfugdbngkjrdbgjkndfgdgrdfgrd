@@ -1941,8 +1941,9 @@ end
 end,
     Enabled = true
 })
-wait(0.5)
+while true do
 if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
     game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
-print("Destroyed")
+end
+wait(0.5)
 end
