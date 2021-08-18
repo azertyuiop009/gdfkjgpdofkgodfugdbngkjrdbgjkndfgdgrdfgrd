@@ -1818,7 +1818,8 @@ end
 end,
     Enabled = true
 })
-while true do
+_G.oekf = true
+while _G.oekf == true do
 if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
     game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
 end
