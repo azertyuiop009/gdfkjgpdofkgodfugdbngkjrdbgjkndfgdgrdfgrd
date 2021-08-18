@@ -1802,10 +1802,10 @@ end,
 Page.Toggle({
     Text = "Auto Skip (Hatch)",
     Callback = function(value)
-if _G.skip == false then
-_G.skip = true
-elseif _G.skip == true then
+if _G.skip == true then
 _G.skip = false
+elseif _G.skip == false then
+_G.skip = true
 elseif _G.skip == nil then
 _G.skip = true
 end
@@ -1816,7 +1816,7 @@ end
 wait(0.2)
 end
 end,
-    Enabled = true
+    Enabled = false
 })
 _G.oekf = true
 while _G.oekf == true do
