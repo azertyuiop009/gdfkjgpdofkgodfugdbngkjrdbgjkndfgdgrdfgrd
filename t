@@ -81,7 +81,7 @@ Login.TextSize = 14.000
 Login.MouseButton1Down:connect(function()
 	Login.Text = "Checking Key ..."
 	wait(5)
-	if(KeyText.Text == "ase3Ag4N69yYJ4j7jWdkSZzVQQYKcO" or KeyText.Text == "pea[dev]..") then
+	if(KeyText.Text == "ase3Ag4N69yYJ4j7jWdkSZzVQQYKcO" or KeyText.Text == "pea123." or KeyText.Text == "hibro[key.].") then
 		Login.Text = 'Correct Key !'
 		wait(3)
 		game.CoreGui:FindFirstChild("Key System"):Destroy()
