@@ -1,13 +1,3 @@
-_G.oekf = true
-while _G.oekf == true do
-if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
-    game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
-        print("Destroyed!")
-    else
-    print("Already Destroyed")
-end
-wait(0.5)
-end
 print("Made By Peanut#8090")
 local player = game.Players.LocalPlayer
 local Localnest = nil
@@ -1820,9 +1810,12 @@ elseif _G.skip == nil then
 _G.skip = true
 end
 while _G.skip == true do
-if game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
+if game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework") then
+    game.Players.LocalPlayer.PlayerScripts.Player:FindFirstChild("EggOpeningFramework"):Destroy()
+        print("Destroyed!")
+    elseif game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame:FindFirstChild("Template") then
     game.Players.LocalPlayer.PlayerGui:WaitForChild("EggOpening").Frame.Template:Destroy()
-end
+    end
 wait(0.2)
 end
 end,
